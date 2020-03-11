@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -21,7 +22,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -39,6 +39,10 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player_1 = Player('Tristan', room['outside'])
+
+print(room['outside'])
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +53,31 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+direction = input(
+    'Where would you like to go \n  N, S, E, W, Q (Only use single letters, press Q to quit.)').lower().strip()
+
+
+flag = True
+
+while flag:
+    current_room = player_1.current_room
+    print("Your location:", player_1.current_room.name)
+    print(player_1.current_room.description)
+    direction = input(
+        'Where would you like to go \n  N, S, E, W, Q (Only use single letters, press Q to quit.)').lower()
+    if direction == 'n' and player_1.current_room != None:
+        player_1.current_room = current_room.n_to
+        print('MOVING north')
+    elif direction == 's' and player_1.current_room.s_to != None:
+        player_1.current_room = current_room.s_to
+        print('TRAVELING south')
+    elif direction == 'e' and player_1.current_room.e_to != None:
+        player_1.current_room = current_room.e_to
+        print('HEADING east')
+    elif direction == 'w' and player_1.current_room.w_to != None:
+        player_1.current_room = current_room.w_to
+        print('GOING west')
+    elif direction == 'q':
+        print('Lets get it')
+        break
