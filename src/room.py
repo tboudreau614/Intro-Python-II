@@ -16,3 +16,4 @@ class Room:
         for i in self.room_items:
             output += f"\n - {i}"
         return output
+        
